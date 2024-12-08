@@ -1,4 +1,4 @@
-import { addBookHandler, getAllBookHandler, getByIdBookHandler, updateBookHandler } from "./handler.js";
+import { addBookHandler, getAllBookHandler, getByIdBookHandler, hapusBookHandler, updateBookHandler } from "./handler.js";
 
 export const route = [
     {
@@ -20,5 +20,10 @@ export const route = [
         method: 'PUT',
         path: '/books/{bookId}',
         handler: updateBookHandler
+    },
+    {
+        method: 'DELETE',
+        path: '/books/{bookId}',
+        handler: hapusBookHandler
     },
 ];

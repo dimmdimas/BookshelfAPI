@@ -47,7 +47,7 @@ export const addBookHandler = (req, h) => {
                 bookId: id,
             },
         });
-        response.code(201);
+        response.code(200);
         return response;
     };
 
@@ -143,3 +143,26 @@ export const updateBookHandler = (req, h) => {
 
 } 
 
+export const hapusBookHandler = (req, h) => {
+    const { bookId } = req.params
+
+    const index = book.findIndex((books) => books.id === bookId);
+
+    if (index !== -1) {
+        book.splice(index, 1);
+
+        const response = h.response({
+            status: 'success',
+            massage: 'Buku berasil dihapus'
+        });
+        response.code(200);
+        return response;
+    };
+
+    const response = h.response({
+        status: 'fail',
+        massage: 'Buku gagal dihapus. Id tidak ditemukan'
+    });
+    response.code(404);
+    return response;
+}
