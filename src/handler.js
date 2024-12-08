@@ -62,12 +62,42 @@ export const addBookHandler = (req, h) => {
     
 };
 
-export const getAllBookHandler = () => ({
-    status: 'success',
-    data: {
-        book
-    },
-});
+export const getAllBookHandler = (req, h) => {
+    const { name, reading, finished } = req.query;
+
+    let theBook = book;
+
+    if (name) {
+        theBook = theBook.filter((n) => n.name.toLowerCase().includes(name.toLowerCase()));
+    };
+
+    if (reading) {
+        if (reading === '0') {
+            theBook = theBook.filter((n) => n.reading === false);
+        };
+        if (reading === '1') {
+            theBook = theBook.filter((n) => n.reading === true);
+        };
+    };
+
+    if (finished) {
+        if (finished === '0') {
+            theBook = theBook.filter((n) => n.finished === false);
+        };
+        if (finished === '1') {
+            theBook = theBook.filter((n) => n.finished === true);
+        };
+    };
+    
+    const response = h.response ({
+        status: 'success',
+        data: {
+            theBook
+        },
+    });
+    response.code(200);
+    return response;
+};
 
 export const getByIdBookHandler = (req, h) => {
     const { bookId } = req.params;
@@ -165,4 +195,4 @@ export const hapusBookHandler = (req, h) => {
     });
     response.code(404);
     return response;
-}
+};
